@@ -19,9 +19,12 @@ void feedSnake(node *snake, char arr[][TABLESIZE]);
 void createSnake(node *snake, char arr[][TABLESIZE]);
 void move(char arr[][TABLESIZE], node *snake, char input);
 void placeSnake(node *snake,char arr[][TABLESIZE]);
+void hidecursor();
+
 int main()
 {
     srand(time(NULL));
+    hidecursor();
     node *snake=(node*)malloc(sizeof(node));
     snake->data='O';
     snake->x=13;
@@ -174,6 +177,7 @@ void move(char arr[][TABLESIZE], node *snake, char input)
                 iter->y++;
             }
 
+
             if(iter->x == bait_x && iter->y==bait_y)
             {
                 feedSnake(snake, arr);
@@ -225,4 +229,11 @@ void yandin()
     getch();
     exit(0);
 }
-
+void hidecursor()
+{
+   HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+   CONSOLE_CURSOR_INFO info;
+   info.dwSize = 100;
+   info.bVisible = FALSE;
+   SetConsoleCursorInfo(consoleHandle, &info);
+}
